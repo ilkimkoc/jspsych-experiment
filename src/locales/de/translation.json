@@ -1,0 +1,62 @@
+{
+  "welcome": "Willkommen",
+  "intro": {
+    "survey_finished": "Ihre demografischen Daten wurden erfolgreich gespeichert.",
+    "welcome_task": "Wir gehen nun zum Hauptteil des Experiments über. In diesem Abschnitt bitten wir Sie, die gezeigten Reize aufmerksam zu verfolgen.",
+    "ready_button": "Experiment starten",
+    "study_phase": "Ihnen werden nun nacheinander Sätze angezeigt.<br>Bitte lesen Sie diese sorgfältig durch.",
+    "visual_study_phase": "Ihnen werden nun nacheinander Fotos angezeigt.<br>Bitte schauen Sie sich diese sorgfältig an.",
+    "test_phase": "Die Lernphase ist beendet.<br>Nun werden wir Ihnen einige Fragen stellen.",
+    "distractor_phase": "Nun folgt eine kurze Zwischenaufgabe. <br> Bitte drücken Sie 'F' für GERADE und 'J' für UNGERADE Zahlen."
+  },
+  "visual_test": {
+    "questions": {
+      "exists": "Gab es ein ähnliches Ereignis?",
+      "source": "Hast du ein Foto gesehen, auf dem diese Handlung ausgeführt wurde, oder hast du nur aus den Fotos geschlossen, dass sie stattgefunden hat?"
+    },
+    "options": {
+      "yes": "Ja",
+      "no": "Nein",
+      "saw_photo": "Ich habe auf dem Foto gesehen, dass die Handlung ausgeführt wurde",
+      "inferred": "Ich habe aus den Fotos geschlossen, dass die Handlung stattgefunden hat"
+    }
+  },
+  "buttons": {
+    "start": "Starten",
+    "continue": "Weiter",
+    "next": "Weiter",
+    "previous": "Zurück",
+    "confirm": "Bestätigen",
+    "start_test": "Test starten",
+    "start_experiment": "Experiment starten"
+  },
+  "options": {
+    "new_sentence": "Neu satz"
+  },
+  "feedback": {
+    "already_participated": "Sie haben bereits an dieser Studie teilgenommen. Eine erneute Teilnahme ist nicht möglich.",
+    "completion": "Das Experiment ist abgeschlossen. Vielen Dank.",
+    "saving_data": "Daten werden gespeichert. Bitte schließen Sie diese Seite nicht."
+  },
+  "demographics": {
+    "validation": {
+      "required": "Bitte beantworten Sie diese Frage.",
+      "age_range": "Bitte geben Sie ein gültiges Alter zwischen 18 und 120 Jahren ein.",
+      "invalid_year": "Bitte geben Sie bir gültiges Jahr ein."
+    },
+    "questions": {
+      "other_text": "Sonstiges (Bitte angeben)",
+      "other_placeholder": "Hier eingeben..."
+    }
+  },
+  "distractor": {
+    "title": "Ablenkungsaufgabe",
+    "even": "GERADE",
+    "odd": "UNGERADE",
+    "instruction": "Bitte klassifizieren Sie die Zahlen als gerade (F) oder ungerade (J)."
+  },
+  "setup": {
+    "preparing": "Das Experiment wird vorbereitet...",
+    "error": "Setup-Fehler"
+  }
+}

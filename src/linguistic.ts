@@ -1,0 +1,290 @@
+/**
+ * @title Linguistic Test Experiment
+ * @description Tez çalışması için geliştirilen dilsel deney uygulaması
+ * @version 1.9.9
+ */
+
+import "../styles/main.scss";
+import i18next from "i18next";
+import HtmlKeyboardResponsePlugin from "@jspsych/plugin-html-keyboard-response";
+
+import { setupExperiment } from "./utils/startup";
+import { SessionManager } from "./utils/session_manager";
+import { registerParticipant } from "./utils/database";
+import { generateLinguisticStimuli } from "./experiments/linguistic/utils/stimuli_factory";
+import { foilPool, studyPool } from "./data/linguistic_stimuli";
+
+import trTranslations from "../src/locales/tr/translation.json";
+import deTranslations from "../src/locales/de/translation.json";
+import { RunOptions, LinguisticTestData } from "./types/interfaces";
+
+import { createPreloadTimeline } from "./experiments/shared/timeline/preload";
+import { createWelcomeTimeline } from "./experiments/shared/timeline/welcome";
+import { createStudyIntroTimeline } from "./experiments/linguistic/timeline/study_intro";
+import { createStudyPhaseTimeline } from "./experiments/linguistic/timeline/study_phase";
+import { createTestIntroTimeline } from "./experiments/linguistic/timeline/test_intro";
+import { createTestPhaseTimeline } from "./experiments/linguistic/timeline/test_phase";
+import { createSaveTimeline } from "./experiments/shared/timeline/save";
+import { createCompletionTimeline } from "./experiments/shared/timeline/completion";
+import { createDemographicsTimeline } from "./experiments/shared/timeline/demographics";
+import { createLanguageSelectionTimeline } from "./experiments/shared/timeline/language_selection";
+import { getExperimentContext } from "./utils/experiment_loader";
+import { ExperimentType, Language, Phase } from "./types/enums";
+import { createInvalidPathTimeline } from "./experiments/shared/timeline/error_screens";
+import { createDistractorIntro } from "./experiments/shared/timeline/distractor_intro";
+import { createDistractorTimeline } from "./experiments/shared/timeline/distractor_phase";
+
+import {
+  GLOBAL_CONFIG,
+  EXPERIMENT_CONFIGS,
+  DATAPIPE_IDS,
+  TIMING_CONFIG,
+  DISTRACTOR_CONFIG,
+} from "./config/constants";
+
+const EXP_TYPE = ExperimentType.LINGUISTIC;
+const LING_CONFIG = EXPERIMENT_CONFIGS.linguistic;
+
+export async function run(_options: RunOptions) {
+  const { jsPsych } = await setupExperiment({
+    trResources: trTranslations,
+    deResources: deTranslations,
+  });
+
+  const context = getExperimentContext<LinguisticTestData>(EXP_TYPE);
+  if (!context.isValid) {
+    await jsPsych.run([createInvalidPathTimeline()]);
+    return jsPsych;
+  }
+
+  const { group, subject_id, savedSession: loadedSession } = context;
+  let sessionToUse = loadedSession;
+
+  jsPsych.data.addProperties({
+    subject_id,
+    experiment_type: EXP_TYPE,
+    participant_group: group,
+  });
+
+  if (
+    GLOBAL_CONFIG.CHECK_PREVIOUS_PARTICIPATION &&
+    SessionManager.isCompleted(EXP_TYPE)
+  ) {
+    await jsPsych.run([
+      {
+        type: HtmlKeyboardResponsePlugin,
+        stimulus: `<p>${i18next.t("feedback.already_participated")}</p>`,
+        choices: "NO_KEYS",
+      },
+    ]);
+    return jsPsych;
+  }
+
+  if (!sessionToUse) {
+    await jsPsych.run([createLanguageSelectionTimeline(jsPsych)]);
+
+    const lastTrialData = jsPsych.data.get().last(1).values()[0];
+    const selectedLang = lastTrialData.lang as Language;
+    if (!selectedLang) throw new Error("Language selection failed.");
+
+    await i18next.changeLanguage(selectedLang);
+
+    const displayElement = jsPsych.getDisplayElement();
+    if (displayElement) {
+      displayElement.innerHTML = `
+        <div class="spinner-container">
+          <div class="spinner"></div>
+          <p style="margin-top:20px;">${i18next.t("setup.preparing")}</p>
+        </div>
+      `;
+    }
+
+    try {
+      const participantNumber = await registerParticipant(
+        selectedLang,
+        subject_id,
+        EXP_TYPE,
+        group!
+      );
+
+      jsPsych.data.addProperties({
+        lang: selectedLang,
+        participant_number: participantNumber,
+      });
+
+      const { learningPhaseStimuli, testPhaseStimuli } =
+        generateLinguisticStimuli(studyPool, foilPool, {
+          itemCountLearning: LING_CONFIG.ITEM_COUNT_LEARNING,
+          testOldCount: LING_CONFIG.TEST_OLD_COUNT,
+          testNewCount: LING_CONFIG.TEST_NEW_COUNT,
+          lang: selectedLang,
+          participantNumber: participantNumber,
+        });
+
+      sessionToUse = {
+        studyStimuli: learningPhaseStimuli,
+        testStimuli: testPhaseStimuli,
+        trialIndex: -1,
+        trialData: [],
+        participantNumber: participantNumber,
+        lang: selectedLang,
+        group: group!,
+      } as any;
+
+      SessionManager.save(EXP_TYPE, subject_id, sessionToUse);
+    } catch (error) {
+      console.error("Setup Error:", error);
+      if (displayElement) {
+        displayElement.innerHTML = `<p style='color:red;'>${i18next.t(
+          "setup.error"
+        )}: ${error instanceof Error ? error.message : "Unknown error"}</p>`;
+      }
+      return jsPsych;
+    }
+  } else {
+    if (sessionToUse.trialData?.length > 0) {
+      sessionToUse.trialData.forEach((d: any) => {
+        jsPsych.data.get().push({
+          ...d,
+          subject_id,
+          experiment_type: EXP_TYPE,
+          participant_group: group,
+          lang: sessionToUse!.lang,
+          participant_number: sessionToUse!.participantNumber,
+        });
+      });
+    }
+    await i18next.changeLanguage(sessionToUse.lang);
+    jsPsych.data.addProperties({
+      lang: sessionToUse.lang,
+      participant_number: sessionToUse.participantNumber,
+    });
+  }
+
+  const finalDisplay = jsPsych.getDisplayElement();
+  if (finalDisplay) finalDisplay.innerHTML = "";
+
+  const mainTimeline = buildLinguisticTimeline(
+    jsPsych,
+    sessionToUse!,
+    subject_id,
+    group!
+  );
+
+  const startIndex =
+    sessionToUse!.trialIndex === -1 ? 0 : sessionToUse!.trialIndex + 1;
+  const timelineToRun = mainTimeline.slice(startIndex);
+
+  if (timelineToRun.length === 0) {
+    console.warn("Experiment timeline is empty or already completed.");
+    return jsPsych;
+  }
+
+  await jsPsych.run(timelineToRun);
+  return jsPsych;
+}
+
+function buildLinguisticTimeline(
+  jsPsych: any,
+  session: any,
+  subject_id: string,
+  group: any
+): any[] {
+  const updateSetupSession = (idx: number, data: any) => {
+    data.phase = Phase.SETUP;
+    SessionManager.updateProgress(EXP_TYPE, subject_id, session, idx, data);
+  };
+
+  const updateSession = (idx: number, data: any) =>
+    SessionManager.updateProgress(EXP_TYPE, subject_id, session, idx, data);
+
+  const baseTrial = {
+    on_start: () => (jsPsych.getDisplayElement().innerHTML = ""),
+  };
+  const lang = session.lang as Language;
+  const activeDataPipeId = (DATAPIPE_IDS as any)[EXP_TYPE][lang];
+
+  let currentIdx = 0;
+
+  const preload = createPreloadTimeline([]);
+  currentIdx++;
+
+  const demographics = createDemographicsTimeline(
+    jsPsych,
+    group,
+    updateSetupSession,
+    currentIdx++,
+    EXP_TYPE,
+    subject_id
+  );
+
+  const welcome = createWelcomeTimeline(
+    baseTrial,
+    updateSetupSession,
+    currentIdx++,
+    session
+  );
+
+  const studyIntro = createStudyIntroTimeline(
+    baseTrial,
+    updateSetupSession,
+    currentIdx++,
+    session
+  );
+
+  const studyTrials = createStudyPhaseTimeline(
+    session.studyStimuli,
+    baseTrial,
+    updateSession,
+    currentIdx,
+    session,
+    TIMING_CONFIG.STUDY_DELAY_LINGUISTIC
+  );
+  currentIdx += session.studyStimuli.length;
+
+  const distractorIntro = createDistractorIntro(
+    baseTrial,
+    updateSetupSession,
+    currentIdx++
+  );
+  const distractorTrials = createDistractorTimeline(updateSession, currentIdx);
+  currentIdx += DISTRACTOR_CONFIG.TRIAL_COUNT * 2;
+
+  const testIntro = createTestIntroTimeline(
+    baseTrial,
+    updateSetupSession,
+    currentIdx++,
+    session
+  );
+  const testTrials = createTestPhaseTimeline(
+    jsPsych,
+    session.testStimuli,
+    baseTrial,
+    updateSession,
+    currentIdx,
+    session
+  );
+  currentIdx += session.testStimuli.length;
+
+  const save = createSaveTimeline(
+    subject_id,
+    jsPsych,
+    EXP_TYPE,
+    activeDataPipeId
+  );
+  const completion = createCompletionTimeline(baseTrial, EXP_TYPE, subject_id);
+
+  return [
+    preload,
+    demographics,
+    welcome,
+    studyIntro,
+    ...studyTrials,
+    distractorIntro,
+    ...distractorTrials,
+    testIntro,
+    ...testTrials,
+    save,
+    completion,
+  ];
+}

@@ -1,0 +1,59 @@
+{
+  "welcome": "Hoş geldiniz",
+  "intro": {
+    "survey_finished": "Demografik soruları yanıtladığınız için teşekkür ederiz.",
+    "welcome_task": "Bir sonraki aşamaya geçmeye hazırsanız lütfen devam edin. Bu bölümde karşınıza gelecek uyaranları dikkatle takip etmeniz önemlidir.",
+    "ready_button": "Deneye Başla",
+    "study_phase": "Şimdi size arka arkaya cümleler gösterilecek.<br>Lütfen dikkatlice okuyunuz.",
+    "visual_study_phase": "Şimdi size arka arkaya fotoğraflar gösterilecek.<br>Lütfen dikkatlice bakınız.",
+    "test_phase": "Öğrenme aşaması bitti.<br>Şimdi size bazı sorular soracağız.",
+    "distractor_phase": "Şimdi kısa bir ara görev yapılacak. <br> Lütfen ÇİFT sayılar için 'F', TEK sayılar için 'J' tuşuna basınız."
+  },
+  "visual_test": {
+    "questions": {
+      "exists": "Buna benzer bir olay var mıydı?",
+      "source": "Bu eylemin gerçekleştiği bir fotoğraf mı gördün, yoksa gerçekleştiğini fotoğraflardan mı çıkarımladın?"
+    },
+    "options": {
+      "yes": "Evet",
+      "no": "Hayır",
+      "saw_photo": "Eylemin gerçekleştiğini fotoğrafta gördüm",
+      "inferred": "Eylemin gerçekleştiğini fotoğraflardan çıkarımladım"
+    }
+  },
+  "buttons": {
+    "start": "Başla",
+    "continue": "Devam Et",
+    "next": "Sonraki",
+    "previous": "Önceki",
+    "confirm": "Onayla",
+    "start_test": "Testi Başlat",
+    "start_experiment": "Deneye Başla"
+  },
+  "options": {
+    "new_sentence": "Yeni cümle"
+  },
+  "feedback": {
+    "already_participated": "Bu çalışmaya daha önce katılım sağladınız. Tekrar katılamazsınız.",
+    "completion": "Deney tamamlandı. Teşekkür ederiz.",
+    "saving_data": "Veriler kaydediliyor. Lütfen bu sayfayı kapatmayın."
+  },
+  "demographics": {
+    "validation": {
+      "required": "Lütfen bu soruyu yanıtlayın.",
+      "age_range": "Lütfen 18 ile 120 arasında geçerli bir yaş giriniz.",
+      "invalid_year": "Lütfen geçerli bir yıl giriniz."
+    },
+    "questions": {
+      "other_text": "Diğer (Lütfen belirtiniz)",
+      "other_placeholder": "Buraya yazınız..."
+    }
+  },
+  "distractor": {
+    "title": "Ara Görev",
+    "even": "ÇİFT",
+    "odd": "TEK",
+    "instruction": "Lütfen sayıları tek (J) veya çift (F) olarak sınıflandırın."
+  },
+  "setup": { "preparing": "Deney hazırlanıyor...", "error": "Kurulum Hatası" }
+}
