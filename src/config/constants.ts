@@ -42,7 +42,7 @@ export const EXPERIMENT_CONFIGS = {
 export const DATAPIPE_IDS = {
   linguistic: {
     de: "iJT0OqZnKvDT",
-    tr: "GK6WwaIfCTM9",
+    tr: "BpMS2zQypzAm",
     heritage: "wzRQtviBoXTw",
   },
   visual: {
