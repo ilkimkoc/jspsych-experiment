@@ -4,9 +4,9 @@ export const DEMOGRAPHICS_DATA = {
   [Language.TR]: {
     consent: {
       [ParticipantGroup.STANDARD]:
-        "Bu çalışmaya katıldığınız için teşekkür ederiz. Katılımınız tamamen gönüllüdür. Bu ankette yalnızca temel demografik bilgiler sorulacaktır. Yanıtlarınız yalnızca bilimsel amaçlarla toplanacak ve analiz edilecektir. Verileriniz gizli tutulacak ve araştırma ekibi dışında kimseyle paylaşılmayacaktır.",
+        "Bu çalışmaya katıldığınız için teşekkür ederiz. Çalışmaya katılım tamamen gönüllüdür. Çalışmayı dilediğiniz zaman sonlandırabilir, dilediğiniz soruyu yanıtlamamayı tercih edebilirsiniz; bunun için herhangi bir gerekçe göstermeniz gerekmez ve sizin için hiçbir olumsuz sonuç doğurmaz. <br><br> Bu anket yalnızca temel demografik bilgiler toplamaktadır. Yanıtlarınız yalnızca bilimsel amaçlarla toplanacak ve analiz edilecektir. Verileriniz güvenli bir şekilde saklanacak, gizli tutulacak ve yürürlükteki veri koruma düzenlemelerine uygun olarak işlenecektir. Verileriniz anonimleştirildikten sonra artık kişisel olarak sizinle ilişkilendirilemez. Verilere yalnızca araştırma ekibi erişebilecektir. <br><br> Çalışmaya katılma ve verilerinizin kullanılmasına ilişkin onayınızı dilediğiniz zaman geri çekebilirsiniz. Bu durumda verilerinizin silinmesini ve sonraki analizlerde kullanılmamasını talep edebilirsiniz. <br><br> Çalışma hakkında sorularınız varsa lütfen şu kişiyle iletişime geçin: <br> İlkim Koç, Dilbilim Bölümü, Konstanz Üniversitesi, ilkim.koc@uni-konstanz.de <br><br> Katılımcı olarak haklarınızla ilgili endişeleriniz varsa Konstanz Üniversitesi Etik Kurulu (Ethik-Kommission der Universität Konstanz) ile iletişime geçebilirsiniz: <br> Universitätsstraße 10, 78464 Konstanz, Almanya, Tel.: +49 7531 88-5037, Faks: +49 7531 88-5039. Daha fazla bilgi için Etik Kurulu’nun web sayfasına bakabilirsiniz.",
       [ParticipantGroup.HERITAGE]:
-        "Bu çalışmaya katıldığınız için teşekkür ederiz. Katılımınız tamamen gönüllüdür. Bu ankette hem temel demografik bilgileriniz hem de Türkçe ve Almanca ile ilgili dil deneyiminiz hakkında sorular yer almaktadır. Yanıtlarınız yalnızca bilimsel amaçlarla toplanacak ve analiz edilecektir. Verileriniz gizli tutulacak ve araştırma ekibi dışında kimseyle paylaşılmayacaktır.",
+        "Bu çalışmaya katıldığınız için teşekkür ederiz. Çalışmaya katılım tamamen gönüllüdür. Çalışmayı dilediğiniz zaman sonlandırabilir, dilediğiniz soruyu yanıtlamamayı tercih edebilirsiniz; bunun için herhangi bir gerekçe göstermeniz gerekmez ve sizin için hiçbir olumsuz sonuç doğurmaz. <br><br> Bu anket yalnızca temel demografik bilgiler toplamaktadır. Yanıtlarınız yalnızca bilimsel amaçlarla toplanacak ve analiz edilecektir. Verileriniz güvenli bir şekilde saklanacak, gizli tutulacak ve yürürlükteki veri koruma düzenlemelerine uygun olarak işlenecektir. Verileriniz anonimleştirildikten sonra artık kişisel olarak sizinle ilişkilendirilemez. Verilere yalnızca araştırma ekibi erişebilecektir. <br><br> Çalışmaya katılma ve verilerinizin kullanılmasına ilişkin onayınızı dilediğiniz zaman geri çekebilirsiniz. Bu durumda verilerinizin silinmesini ve sonraki analizlerde kullanılmamasını talep edebilirsiniz. <br><br> Çalışma hakkında sorularınız varsa lütfen şu kişiyle iletişime geçin: <br> İlkim Koç, Dilbilim Bölümü, Konstanz Üniversitesi, ilkim.koc@uni-konstanz.de <br><br> Katılımcı olarak haklarınızla ilgili endişeleriniz varsa Konstanz Üniversitesi Etik Kurulu (Ethik-Kommission der Universität Konstanz) ile iletişime geçebilirsiniz: <br> Universitätsstraße 10, 78464 Konstanz, Almanya, Tel.: +49 7531 88-5037, Faks: +49 7531 88-5039. Daha fazla bilgi için Etik Kurulu’nun web sayfasına bakabilirsiniz.",
       checkbox:
         "Yukarıdaki bilgileri okudum ve anladım. 18 yaşından büyük olduğumu teyit ediyorum ve çalışmaya gönüllü olarak katılmayı kabul ediyorum.",
     },
@@ -14,18 +14,11 @@ export const DEMOGRAPHICS_DATA = {
       age: "Yaşınız kaç?",
       gender: {
         title: "Cinsiyetiniz nedir?",
-        options: [
-          "Kadın",
-          "Erkek",
-          "İkili olmayan (non-binary)",
-          "Belirtmek istemiyorum",
-          "Diğer",
-        ],
+        options: ["Kadın", "Erkek", "Diğer"],
       },
-      mother_tongue:
-        "Ana dil(ler)iniz hangisi/hangileri? (Birden fazla seçebilirsiniz.)",
+      mother_tongue: "Ana dil(ler)iniz hangisi/hangileri?",
       other_languages:
-        "Anadil(ler)iniz dışında hangi dil(ler)i konuşuyorsunuz? (Varsa lütfen listeleyin.)",
+        "Anadil(ler)iniz dışında hangi dil(ler)i konuşuyorsunuz?",
       education: {
         title: "En yüksek tamamladığınız eğitim seviyesi nedir?",
         options: [
@@ -43,40 +36,23 @@ export const DEMOGRAPHICS_DATA = {
     },
     heritage_specific: {
       born_germany: "Almanya’da mı doğdunuz?",
+      born_germany_choices: ["Evet", "Hayır"],
       move_year: "Almanya’ya ne zaman taşındınız? (Yıl giriniz)",
-      parents_lang:
-        "Ebeveynlerinizin ana dilleri nelerdir? (Ebeveyn 1 / Ebeveyn 2)",
+      parents_lang: "Ebeveynlerinizin ana dilleri nelerdir?",
       helex_proficiency_title:
-        "Lütfen her dilde ne kadar iyi konuştuğunuzu, anladığınızı, okuduğunuzu ve yazdığınızı değerlendirin.",
-      helex_questions: [
-        "Bu dili ne kadar iyi anlayabilirsiniz?",
-        "Bu dili ne kadar iyi konuşabilirsiniz?",
-        "Bu dilde ne kadar iyi okuyabiliyorsunuz?",
-        "Bu dilde ne kadar iyi yazabilirsiniz?",
-      ],
-      helex_options: [
-        "Neredeyse hiç",
-        "Pek iyi değil",
-        "Oldukça iyi",
-        "Çok iyi",
-        "İlgili değil",
-      ],
-      frequency_title:
-        "Kullandığınız tüm diller için bunları ne sıklıkta kullandığınızı değerlendirin.",
-      frequency_questions: [
-        "Bu dili ne sıklıkla duyuyorsunuz?",
-        "Bu dili ne sıklıkla konuşuyorsunuz?",
-        "Bu dilde ne sıklıkla okuyorsunuz?",
-        "Bu dilde ne sıklıkla yazıyorsunuz?",
-      ],
+        "Lütfen Türkçe'de ne kadar iyi konuştuğunuzu, anladığınızı, okuduğunuzu ve yazdığınızı değerlendirin.",
+      helex_questions: ["Anlama", "Konuşma", "Okuma", "Yazma"],
+      helex_options: ["Çok Kötü", "Kötü", "Orta", "İyi", "Çok İyi"],
+      frequency_title: "Türkçe'yi ne sıklıkta kullandığınızı değerlendirin.",
+      frequency_questions: ["Duyma", "Konuşma", "Okuma", "Yazma"],
       frequency_options: [
         "(neredeyse) hiçbir zaman",
         "yılda birkaç kez",
         "ayda bir",
         "haftada bir",
         "haftada birkaç kez",
-        "günde bir (çoğu gün)",
-        "günde birkaç kez (çoğu gün)",
+        "günde bir",
+        "günde birkaç kez",
       ],
       identity_statement: "Türkçe konuşurken kendim gibi hissediyorum.",
       identity_options: [
@@ -84,78 +60,46 @@ export const DEMOGRAPHICS_DATA = {
         "Çoğunlukla katılmıyorum",
         "Biraz katılmıyorum",
         "Ne katılıyorum ne katılmıyorum",
-        "Biraz katılmıyorum",
+        "Biraz katılıyorum",
         "Genel olarak katılıyorum",
         "Tamamen katılıyorum",
-        "Fikrim yok",
       ],
-      travel_title:
-        "Lütfen Türkiye’ye yaptığınız ziyaretlerin sıklığı ve sürelerini belirtiniz.",
       visit_count_title: "Yılda kaç kez Türkiye’ye gidiyorsunuz?",
-      visit_count_options: [
-        "Asla",
-        "Her yıl değil",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-      ],
+      visit_count_options: ["Asla", "Her yıl değil", "1", "2", "3", "4+"],
       visit_duration_title:
         "Türkiye’ye gittiğinizde ziyaret başına ne kadar zaman harcıyorsunuz?",
       visit_duration_options: [
         "Ziyaret etmiyorum",
-        "2–3 gün",
-        "Bir hafta",
-        "2 hafta",
-        "3 hafta",
-        "Bir ay",
-        "Bir buçuk ay",
-        "İki ay",
-        "3 ay",
-        "4 ay",
-        "4 aydan fazla",
+        "1-2 hafta",
+        "3-4 hafta",
+        "1-2 ay",
+        "3 ay veya daha fazla",
       ],
-    },
-    messages: {
-      completion:
-        "Bu bölümün sonuna geldiniz. Katılımınız için teşekkür ederiz! Yanıtlarınız kaydedilmiştir.",
     },
   },
   [Language.DE]: {
     consent: {
       [ParticipantGroup.STANDARD]:
-        "Vielen Dank für Ihre Teilnahme an dieser Studie. Die Teilnahme ist vollständig freiwillig. In diesem Fragebogen werden ausschließlich grundlegende demografische Angaben erhoben. Ihre Antworten werden nur zu wissenschaftlichen Zwecken erhoben und ausgewertet. Ihre Daten werden vertraulich behandelt und nicht an Personen außerhalb des Forschungsteams weitergegeben.",
-      [ParticipantGroup.HERITAGE]:
-        "Vielen Dank für Ihre Teilnahme an dieser Studie. Die Teilnahme ist vollständig freiwillig. In diesem Fragebogen werden sowohl grundlegende demografische Angaben als auch Fragen zu Ihren Spracherfahrungen mit Türkisch und Deutsch erhoben. Ihre Antworten werden nur zu wissenschaftlichen Zwecken erhoben und ausgewertet. Ihre Daten werden vertraulich behandelt und nicht an Personen außerhalb des Forschungsteams weitergegeben.",
+        "Vielen Dank für Ihre Teilnahme an dieser Studie. Die Teilnahme an der Studie ist vollständig freiwillig. Sie können die Studie jederzeit beenden und jede beliebige Frage unbeantwortet lassen; dafür müssen Sie keine Begründung angeben, und Ihnen entstehen daraus keinerlei Nachteile. <br><br> Dieser Fragebogen erhebt nur grundlegende demografische Angaben. Ihre Antworten werden ausschließlich zu wissenschaftlichen Zwecken erhoben und analysiert. Ihre Daten werden sicher gespeichert, vertraulich behandelt und gemäß den geltenden Datenschutzbestimmungen verarbeitet. Nach der Anonymisierung können Ihre Daten nicht mehr Ihrer Person zugeordnet werden. Auf die Daten hat ausschließlich das Forschungsteam Zugriff. <br><br> Sie können Ihre Einwilligung zur Teilnahme und zur Nutzung Ihrer Daten jederzeit widerrufen. In diesem Fall können Sie verlangen, dass Ihre Daten gelöscht und für weitere Analysen nicht verwendet werden. <br><br> Wenn Sie Fragen zu der Studie haben, wenden Sie sich bitte an: <br> İlkim Koç, Fachbereich Linguistik, Universität Konstanz, ilkim.koc@uni-konstanz.de <br><br> Wenn Sie Bedenken hinsichtlich Ihrer Rechte als Teilnehmer*in haben, können Sie sich an die Ethik-Kommission der Universität Konstanz wenden: <br> Universitätsstraße 10, 78464 Konstanz, Deutschland, Tel.: +49 7531 88-5037, Fax: +49 7531 88-5039. Weitere Informationen finden Sie auf der Webseite der Ethik-Kommission.",
+      [ParticipantGroup.HERITAGE]: "",
       checkbox:
-        "Ich habe die obigen Informationen gelesen und verstanden. Ich bestätige, dass ich mindestens 18 Jahre alt bin, und erkläre mich freiwillig mit der Teilnahme an der Studie einverstanden.",
+        "Ich habe die obigen Informationen gelesen und verstanden. Ich bestätige, dass ich mindestens 18 Jahre alt bin und erkläre mich freiwillig mit der Teilnahme an der Studie einverstanden.",
     },
     questions: {
-      age: "Wie alt sind Sie?",
+      age: "Alter:",
       gender: {
-        title: "Was ist Ihr Geschlecht?",
-        options: [
-          "Weiblich",
-          "Männlich",
-          "Nicht-binär",
-          "Möchte ich nicht angeben",
-          "Sonstiges",
-        ],
+        title: "Geschlecht:",
+        options: ["Weiblich", "Männlich", "Sonstiges"],
       },
-      mother_tongue:
-        "Was ist/sind Ihre Muttersprache(n)? (Mehrfachauswahl möglich.)",
-      other_languages:
-        "Welche anderen Sprachen sprechen Sie zusätzlich zu Ihrer/Ihren Muttersprache(n)? (Falls zutreffend bitte auflisten.)",
+      mother_tongue: "Muttersprache(n):",
+      other_languages: "Weitere Sprachen:",
       education: {
-        title: "Was ist Ihr höchster abgeschlossener Bildungsabschluss?",
+        title: "Höchster Bildungsabschluss:",
         options: [
           "Grundschule",
-          "Sekundarstufe I (Haupt-/Realschule)",
-          "Sekundarstufe II (Abitur)",
-          "Berufsausbildung",
+          "Haupt-/Realschule",
+          "Abitur",
+          "Ausbildung",
           "Bachelor",
           "Master",
           "Promotion",
@@ -163,91 +107,7 @@ export const DEMOGRAPHICS_DATA = {
         ],
       },
       department:
-        "In welchem Fachbereich studieren Sie veya haben Sie Ihr Studium abgeschlossen?",
-    },
-    // 🛡️ TS Hatalarını çözen Heritage bloğu (Almanca)
-    heritage_specific: {
-      born_germany: "Sind Sie in Deutschland geboren?",
-      move_year: "Wann sind Sie nach Deutschland gezogen? (Jahr eingeben)",
-      parents_lang:
-        "Was sind die Muttersprachen Ihrer Eltern? (Elternteil 1 / Elternteil 2)",
-      helex_proficiency_title:
-        "Bitte bewerten Sie, wie gut Sie die jeweilige Sprache sprechen, verstehen, lesen und schreiben können.",
-      helex_questions: [
-        "Wie gut verstehen Sie diese Sprache?",
-        "Wie gut sprechen Sie diese Sprache?",
-        "Wie gut lesen Sie in dieser Sprache?",
-        "Wie gut schreiben Sie in dieser Sprache?",
-      ],
-      helex_options: [
-        "Fast gar nicht",
-        "Nicht so gut",
-        "Ziemlich gut",
-        "Sehr gut",
-        "Nicht zutreffend",
-      ],
-      frequency_title:
-        "Bitte bewerten Sie für alle von Ihnen verwendeten Sprachen, wie oft Sie diese nutzen.",
-      frequency_questions: [
-        "Wie oft hören Sie diese Sprache?",
-        "Wie oft sprechen Sie diese Sprache?",
-        "Wie oft lesen Sie in dieser Sprache?",
-        "Wie oft schreiben Sie in dieser Sprache?",
-      ],
-      frequency_options: [
-        "(fast) nie",
-        "mehrmals im Jahr",
-        "einmal im Monat",
-        "einmal pro Woche",
-        "mehrmals pro Woche",
-        "einmal am Tag (fast täglich)",
-        "mehrmals am Tag (fast täglich)",
-      ],
-      identity_statement:
-        "Wenn ich Türkisch spreche, fühle ich mich ganz ich selbst.",
-      identity_options: [
-        "Stimme überhaupt nicht zu",
-        "Stimme größtenteils nicht zu",
-        "Stimme eher nicht zu",
-        "Weder noch",
-        "Stimme eher zu",
-        "Stimme im Allgemeinen zu",
-        "Stimme voll und ganz zu",
-        "Keine Angabe",
-      ],
-      travel_title:
-        "Bitte geben Sie die Häufigkeit und Dauer Ihrer Reisen in die Türkei an.",
-      visit_count_title: "Wie oft reisen Sie pro Jahr in die Türkei?",
-      visit_count_options: [
-        "Nie",
-        "Nicht jedes Jahr",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-      ],
-      visit_duration_title:
-        "Wie viel Zeit verbringen Sie bei einem Besuch in der Türkei durchschnittlich?",
-      visit_duration_options: [
-        "Ich besuche sie nicht",
-        "2–3 Tage",
-        "Eine Woche",
-        "2 Wochen",
-        "3 Wochen",
-        "Ein Monat",
-        "Anderthalb Monate",
-        "Zwei Monate",
-        "3 Monate",
-        "4 Monate",
-        "Mehr als 4 Monate",
-      ],
-    },
-    messages: {
-      completion:
-        "Sie haben diesen Teil abgeschlossen. Vielen Dank für Ihre Teilnahme! Ihre Antworten wurden gespeichert.",
+        "In welchem Fach studieren Sie oder haben Sie Ihr Studium abgeschlossen?",
     },
   },
 };

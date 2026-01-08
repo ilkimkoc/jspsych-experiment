@@ -1,24 +1,25 @@
 {
   "welcome": "Willkommen",
   "intro": {
-    "survey_finished": "Ihre demografischen Daten wurden erfolgreich gespeichert.",
-    "welcome_task": "Wir gehen nun zum Hauptteil des Experiments über. In diesem Abschnitt bitten wir Sie, die gezeigten Reize aufmerksam zu verfolgen.",
+    "survey_finished": "Vielen Dank, dass Sie die demografischen Fragen beantwortet haben.",
+    "welcome_task": "Willkommen. Vielen Dank, dass Sie die demografischen Fragen beantwortet haben. Wenn Sie bereit sind, mit dem nächsten Abschnitt fortzufahren, klicken Sie bitte auf „Weiter“.",
     "ready_button": "Experiment starten",
-    "study_phase": "Ihnen werden nun nacheinander Sätze angezeigt.<br>Bitte lesen Sie diese sorgfältig durch.",
-    "visual_study_phase": "Ihnen werden nun nacheinander Fotos angezeigt.<br>Bitte schauen Sie sich diese sorgfältig an.",
-    "test_phase": "Die Lernphase ist beendet.<br>Nun werden wir Ihnen einige Fragen stellen.",
-    "distractor_phase": "Nun folgt eine kurze Zwischenaufgabe. <br> Bitte drücken Sie 'F' für GERADE und 'J' für UNGERADE Zahlen."
+    "linguistic_study_phase": "In diesem Teil werden Ihnen nacheinander mehrere Sätze präsentiert. Bitte lesen Sie jeden Satz sorgfältig und stellen Sie sicher, dass Sie ihn verstehen, da es sich um eine Leseverständnisaufgabe handelt. Jeder Satz bleibt mindestens 3 Sekunden lang auf dem Bildschirm; in dieser Zeit können Sie nicht weiterschalten. Danach können Sie den Satz so lange lesen, wie Sie möchten, und dann mit der auf dem Bildschirm angegebenen Taste fortfahren. Sobald Sie zum nächsten Satz übergegangen sind, können Sie nicht mehr zum vorherigen zurückkehren. Bitte machen Sie keine Notizen, fertigen Sie keine Screenshots an und verwenden Sie keine externen Hilfsmittel. Uns interessieren Ihre ehrlichen, spontanen Antworten.",
+    "visual_study_phase": "In diesem Teil werden Ihnen nacheinander mehrere Bildpaare präsentiert. Bitte schauen Sie sich jedes Bildpaar aufmerksam an und stellen Sie sicher, dass Sie verstehen, was darauf zu sehen ist, denn dies ist eine Aufgabe zum Bildverständnis. Jedes Bildpaar bleibt mindestens 3 Sekunden lang auf dem Bildschirm; in dieser Zeit können Sie nicht zum nächsten Bildpaar weitergehen. Danach können Sie sich das Bildpaar so lange ansehen, wie Sie möchten, und dann mit der auf dem Bildschirm angegebenen Taste fortfahren. Sobald Sie zum nächsten Bildpaar übergegangen sind, können Sie nicht mehr zum vorherigen zurückkehren. Bitte machen Sie keine Notizen, fertigen Sie keine Screenshots an und verwenden Sie keine Hilfsmittel. In diesem Experiment interessieren uns nur Ihre tatsächlichen Antworten.",
+    "linguistic_test_phase": "Jetzt werden wir Ihnen einige Fragen zu den Sätzen stellen, die Sie vorhin gesehen haben. In diesem Teil werden auf dem Bildschirm erneut Sätze angezeigt. Zu jedem Satz sehen Sie drei Antwortmöglichkeiten: die Form mit „hat“, die Form mit „habe“ und „neuer Satz“. Wir bitten Sie zu entscheiden, ob Sie diesen Satz bereits zuvor gesehen haben und, falls ja, in welcher Form. Wenn Sie denken, dass Sie diesen Satz zuvor mit „hat“ gesehen haben, wählen Sie Option A. Wenn Sie denken, dass Sie ihn mit „habe“ gesehen haben, wählen Sie Option B. Wenn Sie der Meinung sind, dass Sie diesen Satz vorher noch nie gesehen haben, wählen Sie Option C („neuer Satz“).",
+    "visual_test_phase": "Wir werden Ihnen nun einige Fragen zu den Bildpaaren stellen, die Sie zuvor gesehen haben. In diesem Abschnitt werden auf dem Bildschirm kurze Beschreibungen der Ereignisse angezeigt, die auf diesen Fotos zu sehen waren. Zu jeder Beschreibung sollen Sie zunächst entscheiden, ob ein ähnliches Ereignis zuvor gezeigt wurde („Gab es ein ähnliches Ereignis?“). Wenn Sie mit „Ja“ antworten, werden Sie in einer zweiten Frage gebeten anzugeben, ob Sie das Ereignis direkt auf den Fotos gesehen oder es aus dem Kontext der Fotos geschlussfolgert haben. Bitte lesen Sie jede Beschreibung sorgfältig durch und wählen Sie die Option, die am besten zu Ihrer Erinnerung passt.",
+    "distractor_phase": "Bevor wir mit dem nächsten Teil fortfahren, bearbeiten Sie eine kurze Zahlenaufgabe. In der Mitte des Bildschirms werden nacheinander Zahlen angezeigt. Ihre Aufgabe ist es zu entscheiden, ob jede Zahl GERADE oder UNGERADE ist, indem Sie die entsprechende Schaltfläche auf dem Bildschirm anklicken. Dieser Abschnitt wird nur wenige Minuten dauern."
   },
   "visual_test": {
     "questions": {
       "exists": "Gab es ein ähnliches Ereignis?",
-      "source": "Hast du ein Foto gesehen, auf dem diese Handlung ausgeführt wurde, oder hast du nur aus den Fotos geschlossen, dass sie stattgefunden hat?"
+      "source": "Haben Sie diese Person auf den Fotos direkt bei der Ausführung der Handlung gesehen, oder haben Sie aufgrund des Kontextes der beiden Fotos geschlussfolgert, dass diese Person die Handlung vollzogen hat, obwohl der eigentliche Moment der Handlung nicht abgebildet war?"
     },
     "options": {
       "yes": "Ja",
       "no": "Nein",
-      "saw_photo": "Ich habe auf dem Foto gesehen, dass die Handlung ausgeführt wurde",
-      "inferred": "Ich habe aus den Fotos geschlossen, dass die Handlung stattgefunden hat"
+      "saw_photo": "Der Moment der Handlung war auf dem Foto sichtbar; ich habe gesehen, wie diese Person die Handlung ausgeführt hat.",
+      "inferred": "Der Moment der Handlung war auf dem Foto nicht sichtbar; ich habe aus dem Kontext der Fotos geschlussfolgert, dass diese Person die Handlung ausgeführt hat."
     }
   },
   "buttons": {
@@ -31,32 +32,36 @@
     "start_experiment": "Experiment starten"
   },
   "options": {
-    "new_sentence": "Neu satz"
+    "new_sentence": "neuer Satz"
   },
   "feedback": {
     "already_participated": "Sie haben bereits an dieser Studie teilgenommen. Eine erneute Teilnahme ist nicht möglich.",
     "completion": "Das Experiment ist abgeschlossen. Vielen Dank.",
-    "saving_data": "Daten werden gespeichert. Bitte schließen Sie diese Seite nicht."
+    "saving_data": "Daten werden gespeichert. Bitte schließen Sie diese Seite nicht.",
+    "save_error_title": "Daten konnten nicht automatisch gespeichert werden.",
+    "save_error_text": "Bitte klicken Sie auf die Schaltfläche unten, um die Ergebnisdatei auf Ihren Computer herunterzuladen und an den Versuchsleiter zu senden.",
+    "download_button": "Ergebnisse herunterladen (.json)"
   },
   "demographics": {
     "validation": {
       "required": "Bitte beantworten Sie diese Frage.",
       "age_range": "Bitte geben Sie ein gültiges Alter zwischen 18 und 120 Jahren ein.",
-      "invalid_year": "Bitte geben Sie bir gültiges Jahr ein."
+      "invalid_year": "Bitte geben Sie ein gültiges Jahr ein."
     },
     "questions": {
-      "other_text": "Sonstiges (Bitte angeben)",
-      "other_placeholder": "Hier eingeben..."
+      "not_applicable": "Keine Angabe",
+      "other_text": "Sonstiges",
+      "other_placeholder": "Hier angeben..."
     }
   },
   "distractor": {
-    "title": "Ablenkungsaufgabe",
+    "title": "Zahlenaufgabe",
     "even": "GERADE",
     "odd": "UNGERADE",
-    "instruction": "Bitte klassifizieren Sie die Zahlen als gerade (F) oder ungerade (J)."
+    "instruction": "Bitte klassifizieren Sie die Zahlen über die Schaltflächen unten als UNGERADE oder GERADE."
   },
   "setup": {
-    "preparing": "Das Experiment wird vorbereitet...",
-    "error": "Setup-Fehler"
+    "preparing": "Vorbereitung...",
+    "error": "Fehler"
   }
 }

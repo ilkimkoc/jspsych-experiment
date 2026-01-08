@@ -31,10 +31,10 @@ jobs:
       - name: Prepare GitHub Pages content
         run: |
           mkdir pages
-          # Linguistic: en son versiyon dosyayı al
+          # Linguistic:
           LATEST_LINGUISTIC=$(ls packaged/linguistic_*.zip | sort -V | tail -n 1)
           unzip "$LATEST_LINGUISTIC" -d pages
-          # Visual: en son versiyon dosyayı al
+          # Visual:
           LATEST_VISUAL=$(ls packaged/visual_*.zip | sort -V | tail -n 1)
           unzip "$LATEST_VISUAL" -d pages
 

@@ -2,23 +2,24 @@
   "welcome": "Hoş geldiniz",
   "intro": {
     "survey_finished": "Demografik soruları yanıtladığınız için teşekkür ederiz.",
-    "welcome_task": "Bir sonraki aşamaya geçmeye hazırsanız lütfen devam edin. Bu bölümde karşınıza gelecek uyaranları dikkatle takip etmeniz önemlidir.",
+    "welcome_task": "Hoş geldiniz. Demografik soruları yanıtladığınız için teşekkür ederiz. Bir sonraki aşamaya geçmeye hazırsanız lütfen devam edin.",
     "ready_button": "Deneye Başla",
-    "study_phase": "Şimdi size arka arkaya cümleler gösterilecek.<br>Lütfen dikkatlice okuyunuz.",
-    "visual_study_phase": "Şimdi size arka arkaya fotoğraflar gösterilecek.<br>Lütfen dikkatlice bakınız.",
-    "test_phase": "Öğrenme aşaması bitti.<br>Şimdi size bazı sorular soracağız.",
-    "distractor_phase": "Şimdi kısa bir ara görev yapılacak. <br> Lütfen ÇİFT sayılar için 'F', TEK sayılar için 'J' tuşuna basınız."
+    "linguistic_study_phase": "Bu bölümde art arda gösterilen bir dizi cümle göreceksiniz. Lütfen her cümleyi dikkatle okuyun ve anladığınızdan emin olun; çünkü bu bir okuduğunu anlama testidir. Her cümle ekranda en az 3 saniye kalacaktır; bu süre içinde cümleyi geçemezsiniz. Bu sürenin ardından cümleyi dilediğiniz kadar okumaya devam edebilir ve ekranda gösterilen tuşa basarak ilerleyebilirsiniz. Bir sonraki cümleye geçtiğinizde önceki cümleye geri dönmeniz mümkün olmayacaktır. Lütfen not veya ekran görüntüsü almayın ve herhangi bir yardımdan yararlanmayın. Bu deneyde sadece gerçek cevaplarınız ile ilgileniyoruz.",
+    "visual_study_phase": "Bu bölümde art arda gösterilen bir dizi fotoğraf çifti göreceksiniz. Lütfen her fotoğraf çiftini dikkatle inceleyin ve ne olduğunu anladığınızdan emin olun, çünkü bu bir gördüğünü anlama testidir. Her fotoğraf çifti ekranda en az 3 saniye kalacaktır; bu süre içinde bir sonraki fotoğraf çiftine geçemezsiniz. Bu sürenin ardından fotoğraf çiftini dilediğiniz kadar incelemeye devam edebilir ve ekranda gösterilen tuşa basarak ilerleyebilirsiniz. Bir sonraki fotoğraf çiftine geçtiğinizde önceki fotoğraf çiftine geri dönmeniz mümkün olmayacaktır. Lütfen not veya ekran görüntüsü almayın ve herhangi bir yardımdan yararlanmayın. Bu deneyde yalnızca gerçek cevaplarınızla ilgileniyoruz.",
+    "linguistic_test_phase": "Şimdi, biraz önce gördüğünüz cümleler hakkında size bazı sorular soracağız. Bu bölümde ekranda tekrar cümleler göreceksiniz. Her cümle için üç şık göreceksiniz: fiilin -dı ekiyle olduğu hâli, fiilin -mış ekiyle olduğu hâli ve “yeni cümle”. Sizden istediğimiz, bu cümleyi daha önce görüp görmediğinize ve gördüyseniz hangi biçimde gördüğünüze karar vermektir. Bu cümleyi daha önce -dı ekiyle gördüğünüzü düşünüyorsanız A seçeneğini, -mış ekiyle gördüğünüzü düşünüyorsanız B seçeneğini işaretleyiniz. Bu cümleyi daha önce hiç görmediğinizi düşünüyorsanız C seçeneğini (“yeni cümle”) işaretleyiniz.",
+    "visual_test_phase": "Şimdi, biraz önce gördüğünüz fotoğraf çiftleri hakkında size bazı sorular soracağız. Bu bölümde ekranda, bu fotoğraflarda yer alan olayları kısaca betimleyen ifadeler göreceksiniz. Her ifade için önce, buna benzer bir olayın daha önce gösterilip gösterilmediğine karar vermeniz istenecektir (“Buna benzer bir olay var mıydı?”). Eğer ‘Evet’ derseniz, ikinci soruda olayı fotoğraflarda doğrudan mı gördüğünüzü yoksa fotoğraflardaki bağlamdan mı çıkardığınızı belirtmeniz istenecektir. Lütfen her ifadeyi dikkatle okuyun ve belleğinizdeki en iyi karşılığa uyan seçeneği işaretleyin.",
+    "distractor_phase": "Bir sonraki bölüme geçmeden önce kısa bir sayı görevi tamamlayacaksınız. Ekranın ortasında, teker teker beliren sayılar göreceksiniz. Göreviniz, her sayının ÇİFT mi TEK mi olduğuna karar verip ekrandaki ilgili butona basmaktır. Bu bölüm yalnızca birkaç dakika sürecektir."
   },
   "visual_test": {
     "questions": {
       "exists": "Buna benzer bir olay var mıydı?",
-      "source": "Bu eylemin gerçekleştiği bir fotoğraf mı gördün, yoksa gerçekleştiğini fotoğraflardan mı çıkarımladın?"
+      "source": "Bu kişiyi fotoğraflarda eylemi gerçekleştirirken gördünüz mü, yoksa fotoğrafta eylem anı görünmediği hâlde iki fotoğraftaki bağlama dayanarak eylemi bu kişinin gerçekleştirdiğini mi çıkardınız?"
     },
     "options": {
       "yes": "Evet",
       "no": "Hayır",
-      "saw_photo": "Eylemin gerçekleştiğini fotoğrafta gördüm",
-      "inferred": "Eylemin gerçekleştiğini fotoğraflardan çıkarımladım"
+      "saw_photo": "Fotoğrafta eylem anı görünüyordu; bu kişiyi eylemi yaparken gördüm.",
+      "inferred": "Fotoğrafta eylem anı görünmüyordu; fotoğraftaki bağlamdan eylemi bu kişinin yaptığını çıkardım."
     }
   },
   "buttons": {
@@ -36,7 +37,10 @@
   "feedback": {
     "already_participated": "Bu çalışmaya daha önce katılım sağladınız. Tekrar katılamazsınız.",
     "completion": "Deney tamamlandı. Teşekkür ederiz.",
-    "saving_data": "Veriler kaydediliyor. Lütfen bu sayfayı kapatmayın."
+    "saving_data": "Veriler kaydediliyor. Lütfen bu sayfayı kapatmayın.",
+    "save_error_title": "Veri otomatik kaydedilemedi.",
+    "save_error_text": "Lütfen aşağıdaki butona tıklayarak sonuç dosyasını bilgisayarınıza indirin ve araştırmacıya iletin.",
+    "download_button": "Sonuçları İndir (.json)"
   },
   "demographics": {
     "validation": {
@@ -45,15 +49,19 @@
       "invalid_year": "Lütfen geçerli bir yıl giriniz."
     },
     "questions": {
+      "not_applicable": "Cevap vermek istemiyorum",
       "other_text": "Diğer (Lütfen belirtiniz)",
       "other_placeholder": "Buraya yazınız..."
     }
   },
   "distractor": {
-    "title": "Ara Görev",
+    "title": "Sayı Görevi",
     "even": "ÇİFT",
     "odd": "TEK",
-    "instruction": "Lütfen sayıları tek (J) veya çift (F) olarak sınıflandırın."
+    "instruction": "Lütfen sayıları altındaki butonları kullanarak TEK veya ÇİFT olarak sınıflandırın."
   },
-  "setup": { "preparing": "Deney hazırlanıyor...", "error": "Kurulum Hatası" }
+  "setup": {
+    "preparing": "Deney hazırlanıyor...",
+    "error": "Kurulum Hatası"
+  }
 }

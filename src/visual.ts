@@ -1,7 +1,7 @@
 /**
  * @title Visual Test Experiment
  * @description Görsel uyaranlar üzerinden kaynak bellek ölçümü
- * @version 1.9.9
+ * @version 1.0
  * @assets assets/visual/img/
  */
 
@@ -12,7 +12,7 @@ import HtmlKeyboardResponsePlugin from "@jspsych/plugin-html-keyboard-response";
 import { setupExperiment } from "./utils/startup";
 import { SessionManager } from "./utils/session_manager";
 import { registerParticipant } from "./utils/database";
-import { generateVisualStimuli } from "./experiments/visual/utils/stimuli_factory";
+import { generateVisualStimuli } from "./utils/stimuli_factory";
 import { studyPool, foilPool } from "./data/visual_stimuli";
 
 import trTranslations from "../src/locales/tr/translation.json";
@@ -22,26 +22,31 @@ import { RunOptions, VisualTestData } from "./types/interfaces";
 import {
   GLOBAL_CONFIG,
   EXPERIMENT_CONFIGS,
-  DATAPIPE_IDS,
   TIMING_CONFIG,
   DISTRACTOR_CONFIG,
+  DATAPIPE_IDS,
 } from "./config/constants";
 
-import { createPreloadTimeline } from "./experiments/shared/timeline/preload";
-import { createWelcomeTimeline } from "./experiments/shared/timeline/welcome";
-import { createSaveTimeline } from "./experiments/shared/timeline/save";
-import { createCompletionTimeline } from "./experiments/shared/timeline/completion";
-import { createStudyPhaseTimeline } from "./experiments/visual/timeline/study_phase";
-import { createTestPhaseTimeline } from "./experiments/visual/timeline/test_phase";
-import { createStudyIntroTimeline } from "./experiments/visual/timeline/study_intro";
-import { createTestIntroTimeline } from "./experiments/visual/timeline/test_intro";
-import { createDemographicsTimeline } from "./experiments/shared/timeline/demographics";
-import { createLanguageSelectionTimeline } from "./experiments/shared/timeline/language_selection";
+import { createPreloadTimeline } from "./timelines/shared/preload";
+import { createWelcomeTimeline } from "./timelines/shared/welcome";
+import { createSaveTimeline } from "./timelines/shared/save";
+import { createCompletionTimeline } from "./timelines/shared/completion";
+import { createStudyPhaseTimeline } from "./timelines/visual/study_phase";
+import { createTestPhaseTimeline } from "./timelines/visual/test_phase";
+import { createStudyIntroTimeline } from "./timelines/visual/study_intro";
+import { createTestIntroTimeline } from "./timelines/visual/test_intro";
+import { createDemographicsTimeline } from "./timelines/shared/demographics";
+import { createLanguageSelectionTimeline } from "./timelines/shared/language_selection";
 import { getExperimentContext } from "./utils/experiment_loader";
-import { ExperimentType, Language, Phase } from "./types/enums";
-import { createInvalidPathTimeline } from "./experiments/shared/timeline/error_screens";
-import { createDistractorIntro } from "./experiments/shared/timeline/distractor_intro";
-import { createDistractorTimeline } from "./experiments/shared/timeline/distractor_phase";
+import {
+  ExperimentType,
+  Language,
+  ParticipantGroup,
+  Phase,
+} from "./types/enums";
+import { createInvalidPathTimeline } from "./timelines/shared/error_screens";
+import { createDistractorIntro } from "./timelines/shared/distractor_intro";
+import { createDistractorTimeline } from "./timelines/shared/distractor_phase";
 
 const EXP_TYPE = ExperimentType.VISUAL;
 const VIS_CONFIG = EXPERIMENT_CONFIGS.visual;
@@ -59,12 +64,14 @@ export async function run({ assetPaths }: RunOptions) {
   }
 
   const { group, subject_id, savedSession: loadedSession } = context;
+
   let sessionToUse = loadedSession;
 
   jsPsych.data.addProperties({
     subject_id,
     experiment_type: EXP_TYPE,
     participant_group: group,
+    version: GLOBAL_CONFIG.EXPERIMENT_VERSION,
   });
 
   if (
@@ -81,14 +88,17 @@ export async function run({ assetPaths }: RunOptions) {
     return jsPsych;
   }
 
+  let finalLang = context.lang;
+
   if (!sessionToUse) {
-    await jsPsych.run([createLanguageSelectionTimeline(jsPsych)]);
+    if (group !== ParticipantGroup.HERITAGE) {
+      await jsPsych.run([createLanguageSelectionTimeline(jsPsych)]);
+      const lastTrialData = jsPsych.data.get().last(1).values()[0];
+      finalLang = lastTrialData.lang as Language;
+      if (!finalLang) throw new Error("Language selection failed.");
+    }
 
-    const lastTrialData = jsPsych.data.get().last(1).values()[0];
-    const selectedLang = lastTrialData.lang as Language;
-    if (!selectedLang) throw new Error("Language selection failed.");
-
-    await i18next.changeLanguage(selectedLang);
+    await i18next.changeLanguage(finalLang);
 
     const displayElement = jsPsych.getDisplayElement();
     if (displayElement) {
@@ -102,14 +112,13 @@ export async function run({ assetPaths }: RunOptions) {
 
     try {
       const participantNumber = await registerParticipant(
-        selectedLang,
+        finalLang,
         subject_id,
         EXP_TYPE,
         group!
       );
-
       jsPsych.data.addProperties({
-        lang: selectedLang,
+        lang: finalLang,
         participant_number: participantNumber,
       });
 
@@ -120,7 +129,7 @@ export async function run({ assetPaths }: RunOptions) {
           itemCountLearning: VIS_CONFIG.ITEM_COUNT_LEARNING,
           testOldCount: VIS_CONFIG.TEST_OLD_COUNT,
           testNewCount: VIS_CONFIG.TEST_NEW_COUNT,
-          lang: selectedLang,
+          lang: finalLang,
           participantNumber: participantNumber,
         },
         assetPaths.images
@@ -132,17 +141,16 @@ export async function run({ assetPaths }: RunOptions) {
         trialIndex: -1,
         trialData: [],
         participantNumber: participantNumber,
-        lang: selectedLang,
+        lang: finalLang,
         group: group!,
       } as any;
 
       SessionManager.save(EXP_TYPE, subject_id, sessionToUse);
     } catch (error) {
-      console.error("Setup Error:", error);
       if (displayElement) {
-        displayElement.innerHTML = `<p style='color:red; text-align:center;'>${i18next.t(
+        displayElement.innerHTML = `<p style='color:red;'>${i18next.t(
           "setup.error"
-        )}: ${error instanceof Error ? error.message : "Unknown error"}</p>`;
+        )}: ${error}</p>`;
       }
       return jsPsych;
     }
@@ -156,6 +164,7 @@ export async function run({ assetPaths }: RunOptions) {
           participant_group: group,
           lang: sessionToUse!.lang,
           participant_number: sessionToUse!.participantNumber,
+          version: GLOBAL_CONFIG.EXPERIMENT_VERSION,
         });
       });
     }
@@ -164,7 +173,13 @@ export async function run({ assetPaths }: RunOptions) {
       lang: sessionToUse.lang,
       participant_number: sessionToUse.participantNumber,
     });
+    finalLang = sessionToUse.lang;
   }
+
+  const activeDataPipeId =
+    group === ParticipantGroup.HERITAGE
+      ? (DATAPIPE_IDS[EXP_TYPE] as any).heritage
+      : (DATAPIPE_IDS[EXP_TYPE] as any)[finalLang];
 
   const finalDisplay = jsPsych.getDisplayElement();
   if (finalDisplay) finalDisplay.innerHTML = "";
@@ -173,17 +188,12 @@ export async function run({ assetPaths }: RunOptions) {
     jsPsych,
     sessionToUse!,
     subject_id,
-    group!
+    group!,
+    activeDataPipeId
   );
-
   const startIndex =
     sessionToUse!.trialIndex === -1 ? 0 : sessionToUse!.trialIndex + 1;
   const timelineToRun = mainTimeline.slice(startIndex);
-
-  if (timelineToRun.length === 0) {
-    console.warn("Tüm denemeler bitmiş.");
-    return jsPsych;
-  }
 
   await jsPsych.run(timelineToRun);
   return jsPsych;
@@ -193,7 +203,8 @@ function buildExperimentTimeline(
   jsPsych: any,
   session: any,
   subject_id: string,
-  group: any
+  group: any,
+  activeDataPipeId: any
 ): any[] {
   const updateSetupSession = (idx: number, data: any) => {
     data.phase = Phase.SETUP;
@@ -206,8 +217,6 @@ function buildExperimentTimeline(
   const baseTrial = {
     on_start: () => (jsPsych.getDisplayElement().innerHTML = ""),
   };
-  const lang = session.lang as Language;
-  const activeDataPipeId = (DATAPIPE_IDS as any)[EXP_TYPE][lang];
 
   let currentIdx = 0;
 
@@ -225,14 +234,12 @@ function buildExperimentTimeline(
     EXP_TYPE,
     subject_id
   );
-
   const welcome = createWelcomeTimeline(
     baseTrial,
     updateSetupSession,
     currentIdx++,
     session
   );
-
   const studyIntro = createStudyIntroTimeline(
     baseTrial,
     updateSetupSession,
@@ -272,7 +279,6 @@ function buildExperimentTimeline(
     currentIdx,
     session
   );
-
   currentIdx += session.testStimuli.length * 2;
 
   const save = createSaveTimeline(

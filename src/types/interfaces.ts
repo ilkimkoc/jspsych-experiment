@@ -70,6 +70,7 @@ export interface SavedSession<T = LinguisticTestData | VisualTestData> {
   participantNumber: number;
   lang: Language;
   group: ParticipantGroup;
+  version?: string;
 }
 
 export interface StimuliConfig {

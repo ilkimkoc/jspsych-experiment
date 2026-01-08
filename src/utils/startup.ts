@@ -1,14 +1,22 @@
 import i18next from "i18next";
 import { initJsPsych } from "jspsych";
-
 import {
   hasGlobalErrorOccurred,
   registerGlobalErrorBoundary,
 } from "../errors/globalErrorBoundary";
 import { StartupConfig } from "../types/interfaces";
 import { Language } from "../types/enums";
+import { GLOBAL_CONFIG, FAVICON_DATA_URL } from "../config/constants";
 
-import { GLOBAL_CONFIG } from "../config/constants";
+function injectFavicon() {
+  const link =
+    (document.querySelector("link[rel*='icon']") as HTMLLinkElement) ||
+    document.createElement("link");
+  link.type = "image/svg+xml";
+  link.rel = "shortcut icon";
+  link.href = FAVICON_DATA_URL;
+  document.getElementsByTagName("head")[0].appendChild(link);
+}
 
 export async function setupExperiment({
   trResources,
@@ -35,6 +43,8 @@ export async function setupExperiment({
   }
 
   setupDarkModeUI();
+  injectFavicon();
+  document.title = "JsPsych Experiment";
 
   const jsPsych = initJsPsych({
     display_element: root,
@@ -47,7 +57,6 @@ export async function setupExperiment({
   });
 
   const urlParams = new URLSearchParams(window.location.search);
-
   jsPsych.data.addProperties({
     url_parameters: Object.fromEntries(urlParams),
     start_time: new Date().toISOString(),
@@ -58,7 +67,6 @@ export async function setupExperiment({
 
 function setupDarkModeUI() {
   const THEME_KEY = GLOBAL_CONFIG.THEME_STORAGE_KEY;
-
   const applyTheme = (isDark: boolean) => {
     document.body.classList.toggle("dark-mode", isDark);
     localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
@@ -71,19 +79,16 @@ function setupDarkModeUI() {
 
   const navbar = document.createElement("div");
   navbar.id = "dark-mode-navbar";
-
   const button = document.createElement("button");
   button.id = "theme-toggle-btn";
   button.className = "theme-toggle-btn";
   button.onclick = () =>
     applyTheme(!document.body.classList.contains("dark-mode"));
-
   navbar.appendChild(button);
   document.body.appendChild(navbar);
 
   const savedTheme = localStorage.getItem(THEME_KEY);
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
   applyTheme(savedTheme === "dark" || (!savedTheme && prefersDark));
 }
 

@@ -5,9 +5,7 @@ import { ParticipantGroup, Language } from "../types/enums";
 import { SavedSession } from "../types/interfaces";
 
 export function getExperimentContext<T>(expType: string) {
-  const subject_id = getOrCreateSubjectId();
-  const lang = currentLang() as Language;
-
+  let subject_id = getOrCreateSubjectId();
   const params = new URLSearchParams(window.location.search);
   const groupParam = params.get("group");
 
@@ -18,7 +16,7 @@ export function getExperimentContext<T>(expType: string) {
   if (!isValid) {
     return {
       isValid: false,
-      lang,
+      lang: Language.TR,
       subject_id,
       group: null,
       activeDataPipeId: null,
@@ -27,14 +25,40 @@ export function getExperimentContext<T>(expType: string) {
   }
 
   const group = groupParam as ParticipantGroup;
-  let savedSession = SessionManager.load<SavedSession<T>>(expType, subject_id);
+  let lang = currentLang() as Language;
 
-  if (savedSession && savedSession.group !== group) {
-    SessionManager.clear(expType, subject_id);
-    savedSession = null;
+  if (group === ParticipantGroup.HERITAGE) {
+    lang = Language.TR;
   }
 
-  const activeDataPipeId = lang ? (DATAPIPE_IDS as any)[expType][lang] : null;
+  let savedSession = SessionManager.load<SavedSession<T>>(expType, subject_id);
+
+  if (savedSession) {
+    if (savedSession.group !== group) {
+      SessionManager.clear(expType, subject_id);
+      localStorage.removeItem("subject_id");
+      subject_id = Math.random().toString(36).substring(2, 12);
+      localStorage.setItem("subject_id", subject_id);
+      savedSession = null;
+    } else {
+      lang = (savedSession as any).lang || lang;
+    }
+  } else {
+    localStorage.removeItem("subject_id");
+    subject_id = Math.random().toString(36).substring(2, 12);
+    localStorage.setItem("subject_id", subject_id);
+  }
+
+  let activeDataPipeId = null;
+  const expTypeKey = expType as keyof typeof DATAPIPE_IDS;
+  const pipePool = DATAPIPE_IDS[expTypeKey];
+
+  if (group === ParticipantGroup.HERITAGE) {
+    activeDataPipeId = (pipePool as any).heritage;
+  } else {
+    const lookupLang = lang || Language.TR;
+    activeDataPipeId = (pipePool as any)[lookupLang];
+  }
 
   return {
     isValid: true,
